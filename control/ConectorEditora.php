@@ -20,12 +20,13 @@ if (isset($_REQUEST['salvar'])) {
 if(isset($_REQUEST['editar'])){  
     $id = $_REQUEST['idEditora'];
     $editora = EditoraDao::buscarEditoraPorId($id);
+    echo 'passei por aqui';
 }
 
 if(isset($_REQUEST['excluir'])){
-    
-    $id = $_REQUEST['idEditora'];
-    $editora = EditoraDao::ExcluirEditoraPorId($id);
-    
+   
+   $id = $_GET['idEditora'];
+   $editora = EditoraDao::ExcluirEditoraPorId($id);
+     
 }
 

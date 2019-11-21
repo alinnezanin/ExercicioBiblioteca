@@ -23,25 +23,50 @@ class EditoraDao {
         $sql = "select * from editora order by nome";
         $result = Conexao::consultar($sql);
         $lista = new ArrayObject();
-        while (list($id, $nome, $emailContato, $telefone, $endereco) =
-                                                    mysqli_fetch_row($result)) {
+        while (list($nome, $endereco, $telefone, $emailContato, $id) = mysqli_fetch_row($result)) {
             $editora = new Editora();
-            $editora->setId($id);
             $editora->setNome($nome);
-            $editora->setEmail($emailContato);
-            $editora->setTelefone($telefone);
             $editora->setEndereco($endereco);
+            $editora->setTelefone($telefone);
+            $editora->setEmail($emailContato);
+            $editora->setId($id);
             $lista->append($editora);
         }
         return $lista;
     }
-    
-    public function ExcluirEditoraPorId($id){    
-           $sql =    "DELETE FROM editora "
-                . " WHERE id = ".$id;
-           Conexao::executar($sql);
-         header("Location: ../view/FrmEditora.php?salvo");         
-        
-    }
 
+     public static function buscarEditoraPorId($id) {
+        $sql = "select * from editora where id='".$id."'";
+        $result = Conexao::consultar($sql);
+        $lista = new ArrayObject();
+        $editora = new Editora();
+        while (list($nome, $endereco, $telefone, $emailContato, $id) = mysqli_fetch_row($result)) {
+            $editora->setNome($nome);
+            $editora->setEndereco($endereco);
+            $editora->setTelefone($telefone);
+            $editora->setEmail($emailContato);
+            $editora->setId($id);
+            $lista->append($editora);
+        }
+        return $editora;
+    }
+    
+    public function ExcluirEditoraPorId($id) {
+        $sql = "DELETE FROM editora "
+                . " WHERE id = " . $id;
+
+        Conexao::executar($sql);
+       header("Location: ../view/FrmEditora.php?excluido");
+    }
+    
+   public static function editar($editora){
+       $sql = "update editora set"
+               . "nome='".$editora->getNome()."'"
+               . "emailContato='".$editora->getemail()."'"
+               . "telefone='".$editora->getTelefone()."'"
+               . "endereco='".$editora->getEndereco()."'";
+       Conexao::executar($sql);       
+   }
 }
+
+

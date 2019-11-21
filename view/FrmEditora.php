@@ -22,6 +22,12 @@ and open the template in the editor.
 		alert('Dados Salvos Com Sucesso!');
 				</script>";
         }
+        
+        if (isset($_REQUEST['excluido'])) {
+            echo "<script type='text/javascript'>
+		alert('Excluido Com Sucesso!');
+				</script>";
+        }
         $action = "salvar";
         ?>
 
@@ -29,7 +35,7 @@ and open the template in the editor.
 
         <div class="container">
             <h2>Cadastro de Editoras</h2>
-            <form action="../control/salvarEditora.php?<?php echo $action; ?>" method="POST">
+            <form action="../control/ConectorEditora.php?<?php echo $action; ?>" method="POST">
 
                 <div class="form-group">
                     <label>Nome:</label>
@@ -90,13 +96,11 @@ and open the template in the editor.
                         echo '   <td>' . $edi->getTelefone() . '</td>';
                         echo '   <td>' . $edi->getEndereco() . '</td>';
                         echo '<td> 
-                            <a href="../control/salvarEditora.php?
-                            editar?idEditora='. $edi->getId() . '">
+                            <a href="../control/ConectorEditora.php?editar=true&idEditora='. $edi->getId() . '">
                                  <button>Editar</button></a>
                             </td>';
                         echo '<td> 
-                            <a href="../control/salvarEditora.php?
-                            editar?idEditora=' . $edi->getId() . '">             
+                            <a href="../control/ConectorEditora.php?excluir=true&idEditora=' . $edi->getId() . '">             
                                  <button>Excluir</button></a>
                             </td>';
                         echo '</tr> ';
